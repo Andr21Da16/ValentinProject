@@ -1,11 +1,435 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import '../styles/global.css';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Para mi Darling ❤️</title>
+		
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div class="bg-overlay"></div>
+		<main class="container">
+			<!-- Background Floating Hearts (CSS Animation) -->
+			<div class="floating-hearts">
+				<span>❤️</span><span>💖</span><span>💕</span><span>💗</span><span>💓</span>
+			</div>
+
+			<!-- Section 1: Hero -->
+			<section class="hero fade-in">
+				<h1 class="title">Hola, <span class="highlight">Darling</span></h1>
+				<p class="subtitle">Tengo algo importante que decirte...</p>
+				<div class="scroll-indicator">👇</div>
+			</section>
+
+			<!-- Section 2: The Letter -->
+			<section class="letter fade-in-on-scroll">
+				<p>
+					Sé que a veces soy un <strong>"tonto sin remedio"</strong>. Que hemos tenido nuestras discusiones y que la distancia a veces se siente enorme. Pero quiero que sepas algo...
+				</p>
+				<p>
+					Desde que llegaste a mi vida, todo tiene más color. He cambiado, he crecido, y hago cosas que jamás pensé hacer, solo por verte sonreír.
+				</p>
+			</section>
+
+			<!-- Section 3: Geeky References -->
+			<section class="geek-love fade-in-on-scroll">
+				<div class="card spider-card">
+					<h3>Mi MJ, mi Gwen... mi Todo</h3>
+					<p>
+						"En cada universo, te elegiría a ti." 🕷️❤️<br>
+						Tal vez no tenga superpoderes, pero mi mayor responsabilidad es cuidarte y hacerte feliz.
+					</p>
+				</div>
+
+				<div class="card toothless-card">
+					<h3>Como Chimuelo...</h3>
+					<p>
+						¿Recuerdas el peluche? 🐲<br>
+						Así me tienes tú: un poco torpe a veces, pero infinitamente leal y dispuesto a volar a tu lado hasta el fin del mundo.
+					</p>
+				</div>
+			</section>
+
+			<!-- Section 4: Counter -->
+			<section class="counter-section fade-in-on-scroll">
+				<h2>Nuestra Historia</h2>
+				<p class="dating-text">Aunque empezamos a salir mucho antes...</p>
+				<p class="official-text">Oficialmente inseparables desde el 11 de Noviembre de 2025</p>
+				
+				<div id="counter" class="timer">
+					<div class="time-box"><span id="days">0</span><span class="label">Días</span></div>
+					<div class="time-box"><span id="hours">0</span><span class="label">Hs</span></div>
+					<div class="time-box"><span id="minutes">0</span><span class="label">Min</span></div>
+					<div class="time-box"><span id="seconds">0</span><span class="label">Seg</span></div>
+				</div>
+			</section>
+
+			<!-- Section 5: Secret Message -->
+			<section class="secret-section fade-in-on-scroll">
+				<button id="secretBtn" class="btn-secondary">Presiona para un secreto 🤫</button>
+				<p id="secretMsg" class="hidden-msg">
+					Prometo ser menos terco, escucharte más y nunca dejar de intentar enamorarte todos los días. Eres mi persona favorita. 💕
+				</p>
+			</section>
+
+			<!-- Section 6: The Question -->
+			<section class="proposal fade-in-on-scroll">
+				<h2>La pregunta más importante...</h2>
+				<p class="big-question">¿Quieres ser mi San Valentín?</p>
+				
+				<div class="actions">
+					<button id="yesBtn" class="btn-primary">¡SÍ, ACEPTO! 💘</button>
+					<button id="noBtn" class="btn-secondary btn-no">No 😢</button>
+				</div>
+				
+				<div id="celebration" class="hidden">
+					<p>¡SABÍA QUE DIRÍAS QUE SÍ! <br> TE AMO DARLING ❤️</p>
+				</div>
+			</section>
+
+			<footer class="signature fade-in-on-scroll">
+				<p>Con todo mi amor,</p>
+				<p class="name">Tu tonto favorito</p>
+			</footer>
+		</main>
+
+		<script>
+			// --- CONFIGURACIÓN ---
+			// 11 de Noviembre de 2025 (Mes es índice 10)
+			const START_DATE = new Date(2025, 10, 11); 
+
+			// --- CONTADOR ---
+			function updateCounter() {
+				const now = new Date();
+				const diff = now - START_DATE;
+
+				// Si la fecha es futura (por si acaso el sistema tiene otra hora), mostramos 0
+				if (diff < 0) {
+					document.getElementById('days').innerText = "0";
+					document.getElementById('hours').innerText = "0";
+					document.getElementById('minutes').innerText = "0";
+					document.getElementById('seconds').innerText = "0";
+					return;
+				}
+
+				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+				const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+				const minutes = Math.floor((diff / 1000 / 60) % 60);
+				const seconds = Math.floor((diff / 1000) % 60);
+
+				document.getElementById('days').innerText = days;
+				document.getElementById('hours').innerText = hours;
+				document.getElementById('minutes').innerText = minutes;
+				document.getElementById('seconds').innerText = seconds;
+			}
+			setInterval(updateCounter, 1000);
+			updateCounter();
+
+			// --- ANIMACIONES SCROLL ---
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			}, { threshold: 0.1 });
+
+			document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+
+			// --- BOTÓN SECRETO ---
+			const secretBtn = document.getElementById('secretBtn');
+			const secretMsg = document.getElementById('secretMsg');
+			secretBtn.addEventListener('click', () => {
+				secretMsg.style.display = 'block';
+				secretMsg.style.opacity = '0';
+				setTimeout(() => secretMsg.style.opacity = '1', 50);
+				secretBtn.style.display = 'none';
+			});
+
+			// --- BOTÓN SÍ ---
+			const yesBtn = document.getElementById('yesBtn');
+			const noBtn = document.getElementById('noBtn');
+			const celebration = document.getElementById('celebration');
+			
+			yesBtn.addEventListener('click', () => {
+				celebration.classList.remove('hidden');
+				celebration.classList.add('visible-celebration');
+				yesBtn.style.display = 'none';
+				noBtn.style.display = 'none';
+				createHeartExplosion();
+			});
+
+			// --- BOTÓN NO (HUYE) ---
+			// Versión Desktop: Mouseover
+			noBtn.addEventListener('mouseover', moveButton);
+			
+			// Versión Touch: Click/Touchstart (para que sea difícil de dar click)
+			noBtn.addEventListener('click', (e) => {
+				e.preventDefault(); // Evita click real si logra darle
+				moveButton();
+			});
+			noBtn.addEventListener('touchstart', (e) => {
+				// e.preventDefault(); // A veces bloquea el scroll, mejor solo move
+				moveButton();
+			});
+
+			function moveButton() {
+				// Asegurar que se mueve dentro de la ventana visible
+				const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20) + 10;
+				const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20) + 10;
+				
+				noBtn.style.position = 'fixed';
+				noBtn.style.left = x + 'px';
+				noBtn.style.top = y + 'px';
+				noBtn.style.zIndex = '1000'; // Asegurar que quede encima
+			}
+
+			function createHeartExplosion() {
+				for(let i=0; i<30; i++) {
+					const heart = document.createElement('div');
+					heart.innerHTML = '❤️';
+					heart.className = 'confetti-heart';
+					heart.style.left = Math.random() * 100 + 'vw';
+					heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+					document.body.appendChild(heart);
+					setTimeout(() => heart.remove(), 4000);
+				}
+			}
+		</script>
+
+		<style>
+			/* ESTILOS ESPECÍFICOS DE LA LANDING */
+			.container {
+				width: 100%;
+				max-width: 600px; /* Mobile first focus */
+				margin: 0 auto;
+				padding: 2rem 1rem; /* Menos padding lateral para móviles pequeños */
+				position: relative;
+				z-index: 1;
+				text-align: center;
+				padding-bottom: 5rem;
+			}
+			
+			/* Background Overlay */
+			.bg-overlay {
+				position: fixed;
+				top: 0; left: 0; width: 100%; height: 100%;
+				background: radial-gradient(circle at top, #fff0f3, #ffe3e8);
+				z-index: -1;
+			}
+
+			/* Typography Enhancements */
+			.title {
+				font-size: 3rem; /* Ajuste móvil */
+				line-height: 1.1;
+				margin-bottom: 0.5rem;
+				color: var(--color-accent);
+			}
+			.subtitle {
+				font-size: 1.1rem;
+				color: var(--color-secondary);
+				font-weight: 300;
+			}
+			.highlight {
+				color: var(--color-primary);
+				text-shadow: 2px 2px 0px rgba(255, 77, 109, 0.1);
+			}
+
+			/* Sections */
+			section {
+				margin-bottom: 3.5rem;
+				min-height: auto; /* Dejar que el contenido defina altura en móvil */
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.hero {
+				height: 70vh; /* Menos altura en móvil para ver que hay scoll */
+				min-height: 400px;
+			}
+			
+			/* Cards */
+			.card {
+				background: rgba(255, 255, 255, 0.85);
+				backdrop-filter: blur(5px);
+				padding: 1.5rem;
+				border-radius: 20px;
+				box-shadow: 0 10px 25px rgba(255, 77, 109, 0.1);
+				margin: 1rem 0;
+				transform: rotate(-1deg);
+				transition: transform 0.3s ease;
+				border: 1px solid rgba(255,255,255,0.6);
+				width: 100%; /* Full width in container */
+			}
+			.card:nth-child(even) {
+				transform: rotate(1deg);
+			}
+			
+			.card h3 {
+				font-size: 1.4rem;
+				margin-bottom: 0.5rem;
+				color: var(--color-primary);
+			}
+
+			/* Counter */
+			.timer {
+				display: flex;
+				gap: 0.5rem; /* Menos gap en móvil */
+				justify-content: center;
+				margin-top: 1rem;
+				flex-wrap: wrap; 
+			}
+			.time-box {
+				background: var(--color-white);
+				padding: 0.8rem 0.5rem;
+				border-radius: 12px;
+				min-width: 65px; /* Ajuste para pantallas estrechas */
+				flex: 1; /* Crecer para ocupar espacio */
+				max-width: 90px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+			}
+			.time-box span {
+				display: block;
+				font-weight: 700;
+				font-size: 1.4rem;
+				color: var(--color-primary);
+				line-height: 1;
+				margin-bottom: 4px;
+			}
+			.time-box .label {
+				font-size: 0.7rem;
+				font-weight: 400;
+				color: var(--color-text);
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			.dating-text {
+				font-size: 0.9rem;
+				color: var(--color-secondary);
+				margin-bottom: 0.2rem;
+				font-style: italic;
+				padding: 0 1rem;
+			}
+			.official-text {
+				font-weight: 600;
+				color: var(--color-text);
+				margin-bottom: 1.5rem;
+				padding: 0 1rem;
+				font-size: 1rem;
+			}
+
+			/* Buttons */
+			.actions {
+				display: flex;
+				flex-direction: column; /* Stack buttons on mobile usually better, or wrap */
+				gap: 1rem;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+			}
+			@media (min-width: 480px) {
+				.actions {
+					flex-direction: row;
+				}
+			}
+
+			.btn-primary, .btn-secondary {
+				padding: 1rem 2.5rem;
+				border-radius: 50px;
+				font-size: 1.1rem;
+				font-weight: 600;
+				box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+				transition: all 0.3s;
+				width: 100%;
+				max-width: 280px;
+			}
+			.btn-primary {
+				background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+				color: white;
+			}
+			.btn-primary:active {
+				transform: scale(0.98);
+			}
+			.btn-secondary {
+				background: white;
+				color: var(--color-accent);
+				border: 2px solid var(--color-secondary);
+			}
+			.btn-no {
+				font-size: 1rem;
+				padding: 0.8rem 2rem;
+				opacity: 0.9;
+			}
+
+			/* Animations */
+			.fade-in { animation: fadeIn 1.5s ease-out; }
+			
+			.fade-in-on-scroll {
+				opacity: 0;
+				transform: translateY(30px);
+				transition: all 0.8s ease-out;
+			}
+			.fade-in-on-scroll.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.hidden-msg, .hidden { display: none !important; }
+			.visible-celebration { 
+				display: block !important; 
+				margin-top: 1.5rem; 
+				font-weight: bold; 
+				color: var(--color-accent); 
+				font-size: 1.5rem;
+				line-height: 1.4;
+				animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				padding: 1rem;
+				background: rgba(255,255,255,0.8);
+				border-radius: 12px;
+			}
+
+			@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+			@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+			/* Floating Hearts Background */
+			.floating-hearts span {
+				position: fixed;
+				bottom: -10vh;
+				font-size: 2rem;
+				animation: floatUp 15s linear infinite;
+				opacity: 0;
+				z-index: 0;
+				pointer-events: none;
+			}
+			.floating-hearts span:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; font-size: 1.5rem; }
+			.floating-hearts span:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 5s; font-size: 2rem; }
+			.floating-hearts span:nth-child(3) { left: 50%; animation-duration: 15s; animation-delay: 2s; font-size: 1rem; }
+			.floating-hearts span:nth-child(4) { left: 75%; animation-duration: 14s; animation-delay: 7s; font-size: 1.8rem; }
+			.floating-hearts span:nth-child(5) { left: 90%; animation-duration: 20s; animation-delay: 4s; font-size: 1.2rem; }
+
+			@keyframes floatUp {
+				0% { transform: translateY(0); opacity: 0; }
+				10% { opacity: 0.4; }
+				90% { opacity: 0.4; }
+				100% { transform: translateY(-120vh); opacity: 0; }
+			}
+
+			.signature {
+				margin-top: 3rem;
+				font-family: var(--font-heading);
+				font-size: 1.8rem;
+				color: var(--color-accent);
+				padding-bottom: 2rem;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+:root {
+  --color-bg: #fff0f3;
+  --color-text: #592e2e;
+  --color-primary: #ff4d6d;
+  --color-secondary: #ff8fa3;
+  --color-accent: #c9184a;
+  --color-white: #ffffff;
+  
+  --font-body: 'Outfit', sans-serif;
+  --font-heading: 'Dancing Script', cursive;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
